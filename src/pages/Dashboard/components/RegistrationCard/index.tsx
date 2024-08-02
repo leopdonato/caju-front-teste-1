@@ -6,12 +6,24 @@ import {
   HiOutlineCalendar,
   HiOutlineTrash,
 } from "react-icons/hi";
+import api from '../../../../services/api';
 
 type Props = {
   data: any;
 };
 
 const RegistrationCard = (props: Props) => {
+  
+  const updateStatusCard = async (newStatus: string) => {
+    const registration = props.data;
+    try {
+        registration.status = newStatus
+        await api.put(`/registrations/${registration.id}`, registration);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
   return (
     <S.Card>
       <S.IconAndText>
@@ -24,10 +36,10 @@ const RegistrationCard = (props: Props) => {
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineCalendar />
-        <span>{props.data.admissionDate}</span>
+        <span>{props.data.admissionDate}</ span>
       </S.IconAndText>
       <S.Actions>
-        <StatusButton status={props.data.status}></StatusButton>
+        <StatusButton status={props.data.status} onStatusButtonClick={updateStatusCard}></StatusButton>
         <HiOutlineTrash />
       </S.Actions>
     </S.Card>
