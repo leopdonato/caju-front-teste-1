@@ -28,6 +28,7 @@ export const ButtonSmall = styled.button<{
   background-color: ${(props) => props.bgcolor ?? 'none'};
   color: ${(props) => props.color ?? "#000"};
   cursor: pointer;
+  margin-right: 8px;
 `;
 
 

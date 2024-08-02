@@ -1,11 +1,12 @@
 
 import * as S from "./styles";
 import RegistrationCard from "../RegistrationCard";
+import StatusEnum from '../../../../enums/StatusEnum';
 
 const allColumns = [
-  { status: 'REVIEW', title: "Pronto para revisar" },
-  { status: 'APPROVED', title: "Aprovado" },
-  { status: 'REPROVED', title: "Reprovado" },
+  { status: StatusEnum.REVIEW, title: "Pronto para revisar" },
+  { status: StatusEnum.APPROVED, title: "Aprovado" },
+  { status: StatusEnum.REPROVED, title: "Reprovado" },
 ];
 
 type Props = {
@@ -23,12 +24,13 @@ const Collumns = (props: Props) => {
               </S.TitleColumn>
               <S.CollumContent>
                 {props?.registrations?.map((registration) => {
-                  return (
-                    <RegistrationCard
-                      data={registration}
-                      key={registration.id}
-                    />
-                  );
+                  if (registration.status === collum.status)
+                    return (
+                      <RegistrationCard
+                        data={registration}
+                        key={registration.id}
+                      />
+                    );
                 })}
               </S.CollumContent>
             </>
