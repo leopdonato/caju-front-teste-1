@@ -24,7 +24,7 @@ const DashboardPage = () => {
   return (
     <S.Container>
       <SearchBar onRefreshClick={init} />
-      <Collumns registrations={list} />
+      <Collumns registrations={list} getRegistrationsOnUpdateStatus={init} />
     </S.Container>
   );
 };

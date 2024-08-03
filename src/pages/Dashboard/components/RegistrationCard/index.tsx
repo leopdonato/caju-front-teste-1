@@ -10,19 +10,30 @@ import api from '../../../../services/api';
 
 type Props = {
   data: any;
+  onUpdateStatusCard: () => void;
 };
 
 const RegistrationCard = (props: Props) => {
-  
+
   const updateStatusCard = async (newStatus: string) => {
     const registration = props.data;
     try {
-        registration.status = newStatus
-        await api.put(`/registrations/${registration.id}`, registration);
+      registration.status = newStatus
+      await api.put(`/registrations/${registration.id}`, registration);
+      props.onUpdateStatusCard();
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
+
+  const deleteCard = async (id: number) => {
+    try {
+      await api.delete(`/registrations/${id}`);
+      props.onUpdateStatusCard();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <S.Card>
@@ -40,7 +51,7 @@ const RegistrationCard = (props: Props) => {
       </S.IconAndText>
       <S.Actions>
         <StatusButton status={props.data.status} onStatusButtonClick={updateStatusCard}></StatusButton>
-        <HiOutlineTrash />
+        <HiOutlineTrash onClick={() => deleteCard(props.data.id)} />
       </S.Actions>
     </S.Card>
   );

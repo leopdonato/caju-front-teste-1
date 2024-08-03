@@ -11,8 +11,14 @@ const allColumns = [
 
 type Props = {
   registrations?: any[];
+  getRegistrationsOnUpdateStatus: () => void;
 };
+
 const Collumns = (props: Props) => {
+  const onUpdateStatusCard = () => {
+    props.getRegistrationsOnUpdateStatus();
+  };
+
   return (
     <S.Container>
       {allColumns.map((collum) => {
@@ -29,6 +35,7 @@ const Collumns = (props: Props) => {
                       <RegistrationCard
                         data={registration}
                         key={registration.id}
+                        onUpdateStatusCard={onUpdateStatusCard}
                       />
                     );
                 })}
