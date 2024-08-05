@@ -2,6 +2,7 @@
 import * as S from "./styles";
 import RegistrationCard from "../RegistrationCard";
 import StatusEnum from '../../../../enums/StatusEnum';
+import { Employee } from '~/types';
 
 const allColumns = [
   { status: StatusEnum.REVIEW, title: "Pronto para revisar" },
@@ -10,7 +11,7 @@ const allColumns = [
 ];
 
 type Props = {
-  registrations?: any[];
+  registrations?: Employee[];
   getRegistrationsOnUpdateStatus: () => void;
 };
 

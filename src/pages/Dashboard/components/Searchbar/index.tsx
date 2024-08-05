@@ -5,25 +5,37 @@ import { IconButton } from "~/components/Buttons/IconButton";
 import TextField from "~/components/TextField";
 import routes from "~/router/routes";
 import * as S from "./styles";
-import { FC } from 'react';
-interface ISearchBarProps {
-  onRefreshClick: () => void;
-}
+import { ChangeEvent, useState } from 'react';
+import { setMask } from 'react-input-mask-br';
 
-export const SearchBar: FC<ISearchBarProps> = ({ onRefreshClick }) => {
+type Props = {
+  onRefreshClick: () => void;
+  filterByCpf: (cpf: string) => void;
+};
+
+export const SearchBar = (props: Props) => {
   const history = useHistory();
+  const [cpf, setCpf] = useState<string>("");
 
   const goToNewAdmissionPage = () => {
     history.push(routes.newUser);
   };
 
   const onRefresh = () => {
-    onRefreshClick();
+    props.onRefreshClick();
   };
   
   return (
     <S.Container>
-      <TextField  placeholder="Digite um CPF válido" />
+      <TextField  
+      placeholder="Digite um CPF válido"
+      value={cpf}
+      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+        const formattedCpf = setMask({ type: "cpf", value: e.target.value });
+        setCpf(formattedCpf);
+        props.filterByCpf(formattedCpf);
+      }}
+      />
       <S.Actions>
         <IconButton aria-label="refetch" onClick={onRefresh}>
           <HiRefresh />

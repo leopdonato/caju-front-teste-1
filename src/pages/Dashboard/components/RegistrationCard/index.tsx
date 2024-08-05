@@ -6,10 +6,11 @@ import {
   HiOutlineCalendar,
   HiOutlineTrash,
 } from "react-icons/hi";
-import api from '../../../../services/api';
+import { Employee } from '~/types';
+import { deleteEmployeeRegistration, updateEmployeeRegistration } from '~/services/registrations';
 
 type Props = {
-  data: any;
+  data: Employee;
   onUpdateStatusCard: () => void;
 };
 
@@ -19,16 +20,16 @@ const RegistrationCard = (props: Props) => {
     const registration = props.data;
     try {
       registration.status = newStatus
-      await api.put(`/registrations/${registration.id}`, registration);
+      await updateEmployeeRegistration(registration);
       props.onUpdateStatusCard();
     } catch (error) {
       console.error(error);
     }
   }
 
-  const deleteCard = async (id: number) => {
+  const deleteCard = async (id: string) => {
     try {
-      await api.delete(`/registrations/${id}`);
+      await deleteEmployeeRegistration(id);
       props.onUpdateStatusCard();
     } catch (error) {
       console.error(error);
