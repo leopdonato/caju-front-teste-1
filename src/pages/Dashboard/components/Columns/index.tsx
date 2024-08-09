@@ -12,13 +12,13 @@ const allColumns = [
 
 type Props = {
   registrations?: Employee[];
-  getRegistrationsOnUpdateStatus: () => void;
+  // getRegistrationsOnUpdateStatus: () => void;
 };
 
 const Collumns = (props: Props) => {
-  const onUpdateStatusCard = () => {
-    props.getRegistrationsOnUpdateStatus();
-  };
+  // const onUpdateStatusCard = () => {
+  //   props.getRegistrationsOnUpdateStatus();
+  // };
 
   return (
     <S.Container>
@@ -36,7 +36,6 @@ const Collumns = (props: Props) => {
                       <RegistrationCard
                         data={registration}
                         key={registration.id}
-                        onUpdateStatusCard={onUpdateStatusCard}
                       />
                     );
                 })}

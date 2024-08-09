@@ -1,20 +1,24 @@
 import StatusEnum from '../../enums/StatusEnum';
 import { ButtonSmall } from '../../components/Buttons/index';
 import { BaseSyntheticEvent } from 'react';
+import { useRegistrations } from '~/providers/RegistrationProvider';
+import { Employee } from '~/types';
+import { updateEmployee } from '~/store/actionCreators';
 
 type Props = {
-    status: string;
-    onStatusButtonClick: (selectedStatus: string) => void;
+    registration: Employee;
+    // onStatusButtonClick: (selectedStatus: string) => void;
 };
 
 const StatusButton = (props: Props) => {
+    const { dispatch } = useRegistrations();
 
     const onButtonClick = (selectedStatus: BaseSyntheticEvent) => {
-        props.onStatusButtonClick(selectedStatus.target.value);
+        updateEmployee(dispatch, props.registration, selectedStatus.target.value)
     };
 
     const getStatusButton = () => {
-        switch (props.status) {
+        switch (props.registration.status) {
             case StatusEnum.REVIEW:
                 return (
                     <>

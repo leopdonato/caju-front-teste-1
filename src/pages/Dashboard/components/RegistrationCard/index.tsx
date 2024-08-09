@@ -1,3 +1,4 @@
+import { useRegistrations } from '~/providers/RegistrationProvider';
 import StatusButton from '../../../../components/Buttons/StatusButton';
 import * as S from "./styles";
 import {
@@ -7,34 +8,39 @@ import {
   HiOutlineTrash,
 } from "react-icons/hi";
 import { Employee } from '~/types';
-import { deleteEmployeeRegistration, updateEmployeeRegistration } from '~/services/registrations';
+import { deleteEmployee } from '~/store/actionCreators';
 
 type Props = {
   data: Employee;
-  onUpdateStatusCard: () => void;
+  // onUpdateStatusCard: () => void;
 };
 
 const RegistrationCard = (props: Props) => {
+  const { dispatch } = useRegistrations();
 
-  const updateStatusCard = async (newStatus: string) => {
-    const registration = props.data;
-    try {
-      registration.status = newStatus
-      await updateEmployeeRegistration(registration);
-      props.onUpdateStatusCard();
-    } catch (error) {
-      console.error(error);
-    }
+  const deleteCard = (id: string) => {
+    deleteEmployee(dispatch, id)
   }
 
-  const deleteCard = async (id: string) => {
-    try {
-      await deleteEmployeeRegistration(id);
-      props.onUpdateStatusCard();
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // const updateStatusCard = async (newStatus: string) => {
+  //   const registration = props.data;
+  //   try {
+  //     registration.status = newStatus
+  //     await updateEmployeeRegistration(registration);
+  //     props.onUpdateStatusCard();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  // const deleteCard = async (id: string) => {
+  //   try {
+  //     await deleteEmployeeRegistration(id);
+  //     props.onUpdateStatusCard();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <S.Card>
@@ -51,8 +57,8 @@ const RegistrationCard = (props: Props) => {
         <span>{props.data.admissionDate}</ span>
       </S.IconAndText>
       <S.Actions>
-        <StatusButton status={props.data.status} onStatusButtonClick={updateStatusCard}></StatusButton>
-        <HiOutlineTrash onClick={() => deleteCard(props.data.id)} />
+        <StatusButton registration={props.data}></StatusButton>
+        <HiOutlineTrash aria-label="Apagar" onClick={() => deleteCard(props.data.id)} />
       </S.Actions>
     </S.Card>
   );

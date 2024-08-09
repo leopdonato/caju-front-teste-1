@@ -7,23 +7,30 @@ import routes from "~/router/routes";
 import * as S from "./styles";
 import { ChangeEvent, useState } from 'react';
 import { setMask } from 'react-input-mask-br';
+import { useRegistrations } from '~/providers/RegistrationProvider';
+import { getEmployees } from '~/store/actionCreators';
 
 type Props = {
-  onRefreshClick: () => void;
+  // onRefreshClick: () => void;
   filterByCpf: (cpf: string) => void;
 };
 
 export const SearchBar = (props: Props) => {
   const history = useHistory();
   const [cpf, setCpf] = useState<string>("");
+  const { dispatch } = useRegistrations();
 
   const goToNewAdmissionPage = () => {
     history.push(routes.newUser);
   };
 
   const onRefresh = () => {
-    props.onRefreshClick();
-  };
+    getEmployees(dispatch)
+  }
+
+  // const onRefresh = () => {
+  //   props.onRefreshClick();
+  // };
   
   return (
     <S.Container>

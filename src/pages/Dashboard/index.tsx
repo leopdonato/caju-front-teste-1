@@ -2,39 +2,34 @@ import Collumns from "./components/Columns";
 import * as S from "./styles";
 import { SearchBar } from "./components/Searchbar";
 import { useEffect, useState } from 'react';
-import { getEmployeesRegistrations } from '~/services/registrations';
-import { Employee } from '~/types';
 import { cpfIsValid } from "cpf-is-valid";
+import { useRegistrations } from '~/providers/RegistrationProvider';
+import { getEmployees } from '~/store/actionCreators';
 
 
 const DashboardPage = () => {
-  const [list, setList] = useState<Employee[]>([]);
-
-  async function getRegistrationsList(cpf?: string) {
-    try {
-      const response = await getEmployeesRegistrations(cpf);
-      setList(response);
-    } catch (error) {
-      console.error('Erro ao buscar dados:', error);
-    }
-  }
+  const [query, setQuery] = useState<string>("");
+  const { state, dispatch } = useRegistrations();
 
   useEffect(() => {
-    getRegistrationsList();
-  }, []);
+    getEmployees(dispatch, query);
+  }, [dispatch, query]);
 
   const filterByCpf = (cpf: string) => {
     if (!cpfIsValid(cpf) && cpf.length > 0) {
       return;
     }
 
-    getRegistrationsList(cpf.replace(/[.-]/g, ""));
+    if(cpfIsValid(cpf) || cpf.length == 0) {
+      setQuery(cpf.replace(/[.-]/g, ""));
+    }
+
   };
 
   return (
     <S.Container>
-      <SearchBar onRefreshClick={getRegistrationsList} filterByCpf={filterByCpf} />
-      <Collumns registrations={list} getRegistrationsOnUpdateStatus={getRegistrationsList} />
+      <SearchBar filterByCpf={filterByCpf} />
+      <Collumns registrations={state.employees} />
     </S.Container>
   );
 };
