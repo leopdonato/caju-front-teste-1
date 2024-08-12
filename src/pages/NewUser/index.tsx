@@ -32,6 +32,7 @@ const NewUserPage = () => {
   }
 
   const onSubmit = (data: Employee) => {
+    console.log(data)
     const payload = {
       ...data,
       cpf: data.cpf.replace(/[.-]/g, ""),
@@ -62,7 +63,11 @@ const NewUserPage = () => {
     if (fieldError.type === "required") {
       return `${fieldName} é obrigatório!`;
     } else {
-      return `${fieldError.message}`;
+      let message: string = '';
+      console.log(fieldError, fieldName)
+      if (fieldError.type === 'validate' && fieldName === 'CPF') message = 'CPF inválido!'
+      else message = `${fieldError.message}`
+      return message;
     }
   };
 

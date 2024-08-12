@@ -8,7 +8,7 @@ import {
   HiOutlineTrash,
 } from "react-icons/hi";
 import { Employee } from '~/types';
-import { deleteEmployee } from '~/store/actionCreators';
+import { deleteEmployee } from '~/store/Registrations';
 import { useConfirmation } from '~/providers/ConfirmationProvider';
 
 type Props = {

@@ -4,7 +4,7 @@ import { SearchBar } from "./components/Searchbar";
 import { useEffect, useState } from 'react';
 import { cpfIsValid } from "cpf-is-valid";
 import { useRegistrations } from '~/providers/RegistrationProvider';
-import { getEmployees } from '~/store/actionCreators';
+import { getEmployees } from '~/store/Registrations';
 
 
 const DashboardPage = () => {

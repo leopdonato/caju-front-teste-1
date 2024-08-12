@@ -7,16 +7,16 @@ import ToastProvider from './providers/ToastProvider';
 function App() {
   return (
     <>
-      <ConfirmationProvider>
-        <ToastProvider>
+      <ToastProvider>
+        <ConfirmationProvider>
           <RegistrationsProvider>
             <Header>
               <h1>Caju Front Teste</h1>
             </Header>
             <Router />
           </RegistrationsProvider>
-        </ToastProvider>
-      </ConfirmationProvider>
+        </ConfirmationProvider>
+      </ToastProvider>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { Dispatch } from 'react';
 import ActionEnum from '~/enums/ActionEnum';
+import { AppStatusEnum } from '~/enums/AppStatusEnum';
 
 export type Employee = {
   id: string;
@@ -10,21 +11,15 @@ export type Employee = {
   admissionDate: string;
 };
 
-export type AppStatus =
-  | "default"
-  | "loading"
-  | "success"
-  | "failed";
-
 export type Action =
   | { type: ActionEnum.SET_REGISTRATIONS; registrations: Employee[] }
   | { type: ActionEnum.ADD_REGISTRATION; registration: Employee }
   | { type: ActionEnum.UPDATE_REGISTRATION; registration: Employee }
   | { type: ActionEnum.DELETE_REGISTRATION; id: string }
-  | { type: ActionEnum.SET_STATUS; status: AppStatus };
+  | { type: ActionEnum.SET_STATUS; status: AppStatusEnum };
 
 export type StartState = {
-  status: AppStatus;
+  status: AppStatusEnum;
   employees: Employee[];
 };
 

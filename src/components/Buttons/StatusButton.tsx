@@ -3,7 +3,7 @@ import { ButtonSmall } from '../../components/Buttons/index';
 import { BaseSyntheticEvent } from 'react';
 import { useRegistrations } from '~/providers/RegistrationProvider';
 import { Employee } from '~/types';
-import { updateEmployee } from '~/store/actionCreators';
+import { updateEmployee } from '~/store/Registrations';
 import { useConfirmation } from '~/providers/ConfirmationProvider';
 
 type Props = {

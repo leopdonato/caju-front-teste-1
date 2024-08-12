@@ -3,9 +3,10 @@ import ActionEnum from '~/enums/ActionEnum';
 import * as registrationService from "~/services/registrations"
 import { Action, Employee } from "~/types";
 import { toast } from 'react-toastify';
+import { AppStatusEnum } from '~/enums/AppStatusEnum';
 
 export const getEmployees = (dispatch: Dispatch<Action>, cpf = "") => {
-  dispatch({ type: ActionEnum.SET_STATUS, status: "loading" });
+  dispatch({ type: ActionEnum.SET_STATUS, status: AppStatusEnum.LOADING});
   setTimeout(() => {
     return registrationService
       .getEmployeesRegistrations(cpf)
@@ -24,17 +25,17 @@ export const getEmployees = (dispatch: Dispatch<Action>, cpf = "") => {
       }
       )
       .catch((e) => toast.error(`${e}`))
-      .finally(() => dispatch({ type: ActionEnum.SET_STATUS, status: "default" }));
+      .finally(() => dispatch({ type: ActionEnum.SET_STATUS, status: AppStatusEnum.DEFAULT }));
   }, 1000)
 };
 
 export const createEmployee = (dispatch: Dispatch<Action>, data: Employee) => {
   return registrationService.createEmployeeRegistration(data).then((res) => {
+    toast.success("Registro criado com sucesso!")
     dispatch({
       type: ActionEnum.ADD_REGISTRATION,
       registration: res,
     });
-    toast.success("Registro criado com sucesso!")
   }).catch((e) => toast.error(`${e}`));
 };
 
@@ -43,7 +44,7 @@ export const updateEmployee = (
   data: Employee,
   status: string
 ) => {
-  dispatch({ type: ActionEnum.SET_STATUS, status: "loading" });
+  dispatch({ type: ActionEnum.SET_STATUS, status: AppStatusEnum.LOADING });
   const payload = { ...data, status: status };
   setTimeout(() => {
     return registrationService.updateEmployeeRegistration(payload).then((res) => {
@@ -51,18 +52,18 @@ export const updateEmployee = (
         type: ActionEnum.UPDATE_REGISTRATION,
         registration: res,
       });
-      dispatch({ type: ActionEnum.SET_STATUS, status: "success" });
+      dispatch({ type: ActionEnum.SET_STATUS, status: AppStatusEnum.SUCCESS });
       toast.success("Registro atualizado com sucesso!");
     }).catch((e) => toast.error(`${e}`));
   }, 1000)
 };
 
 export const deleteEmployee = (dispatch: Dispatch<Action>, id: string) => {
-  dispatch({ type: ActionEnum.SET_STATUS, status: "loading" });
+  dispatch({ type: ActionEnum.SET_STATUS, status: AppStatusEnum.LOADING });
   setTimeout(() => {
     return registrationService.deleteEmployeeRegistration(id).then(() => {
       dispatch({ type: ActionEnum.DELETE_REGISTRATION, id: id });
-      dispatch({ type: ActionEnum.SET_STATUS, status: "success" });
+      dispatch({ type: ActionEnum.SET_STATUS, status: AppStatusEnum.SUCCESS });
       toast.success("Registro excluído com sucesso!");
     }).catch((e) => toast.error(`${e}`));
   }, 1000)

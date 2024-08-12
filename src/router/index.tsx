@@ -4,12 +4,13 @@ import DashboardPage from "~/pages/Dashboard";
 import NewUserPage from "~/pages/NewUser";
 import Spinner from 'react-spinner-material';
 import { useRegistrations } from '~/providers/RegistrationProvider';
+import { AppStatusEnum } from '~/enums/AppStatusEnum';
 
 const Router = () => {
   const { state } = useRegistrations();
   return (
     <>
-    <Spinner radius={120} color={"red"} stroke={5} visible={state.status === "loading" } className='spinner' />
+    <Spinner radius={120} color={"red"} stroke={5} visible={state.status === AppStatusEnum.LOADING } className='spinner' aria-label="Loading" />
       <div style={{ marginTop: 64 }}>
         <HashRouter>
           <Switch>

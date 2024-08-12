@@ -8,7 +8,7 @@ import * as S from "./styles";
 import { ChangeEvent, useState } from 'react';
 import { setMask } from 'react-input-mask-br';
 import { useRegistrations } from '~/providers/RegistrationProvider';
-import { getEmployees } from '~/store/actionCreators';
+import { getEmployees } from '~/store/Registrations';
 
 type Props = {
   // onRefreshClick: () => void;

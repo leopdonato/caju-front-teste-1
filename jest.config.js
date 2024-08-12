@@ -9,6 +9,7 @@ export default {
   },
   moduleNameMapper: {
     "^~/(.+)": "<rootDir>/src/$1",
+    "\\.(css|less)$": "jest-transform-stub"
   },
-//   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
 };
