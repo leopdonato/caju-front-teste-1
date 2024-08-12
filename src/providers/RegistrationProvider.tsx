@@ -1,7 +1,7 @@
 import { useContext, useReducer } from 'react';
 import RegistrationContext from '~/contexts/RegistrationContext';
-import { StartState } from '~/store/actionTypes';
 import { stateManagement } from '~/store/StateManagement';
+import { StartState } from '~/types';
 
 type Props = {
     children: React.ReactNode;

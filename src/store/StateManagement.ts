@@ -1,17 +1,18 @@
-import { Action, ActionType, StartState } from './actionTypes';
+import ActionEnum from '~/enums/ActionEnum';
+import { Action, StartState } from '~/types';
 
 export function stateManagement(state: StartState, action: Action) {
   switch (action.type) {
-    case ActionType.SET_STATUS: {
+    case ActionEnum.SET_STATUS: {
       return { ...state, status: action.status };
     }
-    case ActionType.SET_REGISTRATIONS: {
+    case ActionEnum.SET_REGISTRATIONS: {
       return { ...state, employees: action.registrations };
     }
-    case ActionType.ADD_REGISTRATION: {
+    case ActionEnum.ADD_REGISTRATION: {
       return { ...state, employees: [...state.employees] };
     }
-    case ActionType.UPDATE_REGISTRATION: {
+    case ActionEnum.UPDATE_REGISTRATION: {
       return {
         ...state,
         employees: state.employees.map((element) => {
@@ -23,7 +24,7 @@ export function stateManagement(state: StartState, action: Action) {
         }),
       };
     }
-    case ActionType.DELETE_REGISTRATION: {
+    case ActionEnum.DELETE_REGISTRATION: {
       return {
         ...state,
         employees: state.employees.filter((el) => el.id != action.id),

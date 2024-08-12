@@ -9,6 +9,7 @@ import {
 } from "react-icons/hi";
 import { Employee } from '~/types';
 import { deleteEmployee } from '~/store/actionCreators';
+import { useConfirmation } from '~/providers/ConfirmationProvider';
 
 type Props = {
   data: Employee;
@@ -17,9 +18,18 @@ type Props = {
 
 const RegistrationCard = (props: Props) => {
   const { dispatch } = useRegistrations();
+  const confirm = useConfirmation();
 
   const deleteCard = (id: string) => {
-    deleteEmployee(dispatch, id)
+    confirm({
+      title: 'Você tem certeza?',
+      message: 'Deseja excluir esse registro?',
+      onConfirm: () => {
+        deleteEmployee(dispatch, id)
+      },
+      onCancel: () => {
+      }
+    });
   }
 
   // const updateStatusCard = async (newStatus: string) => {

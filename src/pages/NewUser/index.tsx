@@ -12,8 +12,10 @@ import StatusEnum from '~/enums/StatusEnum';
 import { cpfIsValid } from 'cpf-is-valid';
 import { ChangeEvent } from 'react';
 import { setMask } from 'react-input-mask-br';
+import { useConfirmation } from '~/providers/ConfirmationProvider';
 
 const NewUserPage = () => {
+  const confirm = useConfirmation();
   const history = useHistory();
   const goToHome = () => {
     history.push(routes.dashboard);
@@ -37,7 +39,16 @@ const NewUserPage = () => {
       status: StatusEnum.REVIEW,
     };
 
-    createEmployeeRegistration(payload).then(() => goToHome());
+    confirm({
+      title: 'Você tem certeza?',
+      message: 'Deseja prosseguir com o cadastro?',
+      onConfirm: () => {
+        createEmployeeRegistration(payload).then(() => goToHome());
+      },
+      onCancel: () => {
+      }
+    });
+
   };
 
   const getFormError = (
@@ -115,12 +126,12 @@ const NewUserPage = () => {
           name="cpf"
         />
         <TextField
-        {...register("admissionDate", { required: true })}
-        aria-invalid={errors.admissionDate ? "true" : "false"}
-        error={getFormError("Data de admissão", errors.admissionDate)}
-        id="date"
-        label="Data de admissão" 
-        type="date" />
+          {...register("admissionDate", { required: true })}
+          aria-invalid={errors.admissionDate ? "true" : "false"}
+          error={getFormError("Data de admissão", errors.admissionDate)}
+          id="date"
+          label="Data de admissão"
+          type="date" />
         <Button type="submit">Cadastrar</Button>
       </S.Card>
     </S.Container>

@@ -4,6 +4,7 @@ import { BaseSyntheticEvent } from 'react';
 import { useRegistrations } from '~/providers/RegistrationProvider';
 import { Employee } from '~/types';
 import { updateEmployee } from '~/store/actionCreators';
+import { useConfirmation } from '~/providers/ConfirmationProvider';
 
 type Props = {
     registration: Employee;
@@ -11,10 +12,19 @@ type Props = {
 };
 
 const StatusButton = (props: Props) => {
+    const confirm = useConfirmation();
     const { dispatch } = useRegistrations();
 
     const onButtonClick = (selectedStatus: BaseSyntheticEvent) => {
-        updateEmployee(dispatch, props.registration, selectedStatus.target.value)
+        confirm({
+            title: 'Você tem certeza?',
+            message: `Deseja prosseguir com a ação?`,
+            onConfirm: () => {
+                updateEmployee(dispatch, props.registration, selectedStatus.target.value)
+            },
+            onCancel: () => {
+            }
+        });
     };
 
     const getStatusButton = () => {
