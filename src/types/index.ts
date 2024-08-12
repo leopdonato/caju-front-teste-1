@@ -32,3 +32,11 @@ export type RegistrationContextType = {
   state: StartState;
   dispatch: Dispatch<Action>;
 };
+
+
+export type ConfirmationType = {
+  title: string,
+  message: string,
+  onConfirm: () => void,
+  onCancel: () => void
+}

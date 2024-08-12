@@ -23,5 +23,9 @@ export function RegistrationsProvider({ children }: Props) {
 }
 
 export function useRegistrations() {
-    return useContext(RegistrationContext);
+    const context = useContext(RegistrationContext)
+    if (!context) {
+        throw new Error('useConfirmation must be used within a ConfirmationProvider');
+      }
+    return context;
 }

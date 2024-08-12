@@ -8,20 +8,52 @@ interface getEmployeesRegistrationsParams {
 export const getEmployeesRegistrations = async (cpf: string = ""): Promise<Employee[]> => {
   const params: getEmployeesRegistrationsParams = {};
   if (cpf) params.cpf = cpf;
-  const response = await api.get("/registrations", { params });
-  return response.data;
+  try {
+    const response = await api.get("/registrations", { params });
+    return response.data;
+  } catch (error) {
+    let errorMessage: string = '';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    throw new Error(`Falha ao listar os registros\n ${errorMessage}`)
+  }
 };
 
 export const createEmployeeRegistration = async (payload: Employee): Promise<Employee> => {
-  const response = await api.post("/registrations", payload);
-  return response.data;
+  try {
+    const response = await api.post("/registrations", payload);
+    return response.data;
+  } catch (error) {
+    let errorMessage: string = '';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    throw new Error(`Falha ao criar o registro\n ${errorMessage}`)
+  }
 };
 
 export const updateEmployeeRegistration = async (payload: Employee): Promise<Employee> => {
-  const response = await api.put(`/registrations/${payload.id}`, payload);
-  return response.data;
+  try {
+    const response = await api.put(`/registrations/${payload.id}`, payload);
+    return response.data;
+  } catch (error) {
+    let errorMessage: string = '';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    throw new Error(`Falha ao atualizar o registro\n ${errorMessage}`)
+  }
 };
 
 export const deleteEmployeeRegistration = async (id: string): Promise<void> => {
-  await api.delete(`/registrations/${id}`);
+  try {
+    await api.delete(`/registrations/${id}`);
+  } catch (error) {
+    let errorMessage: string = '';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    throw new Error(`Falha ao excluir o registro\n ${errorMessage}`)
+  }
 };

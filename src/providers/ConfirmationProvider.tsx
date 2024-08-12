@@ -1,19 +1,12 @@
-import { createContext, useContext } from 'react';
+import { useContext } from 'react';
 import ConfirmationDialog from '~/components/ConfirmationDialog/ConfirmationDialog';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import ConfirmationContext from '~/contexts/ConfirmationContext';
+import { ConfirmationType } from '~/types';
 
 type Props = {
     children: React.ReactNode;
 };
-
-type Confirmation = {
-    title: string,
-    message: string,
-    onConfirm: () => void,
-    onCancel: () => void
-}
-
-const ConfirmationContext = createContext<((options:Confirmation) => void) | null>(null);
 
 export const useConfirmation = () => {
   const context = useContext(ConfirmationContext);
@@ -25,7 +18,7 @@ export const useConfirmation = () => {
 
 const ConfirmationProvider = ({ children }: Props) => {
     
-  const showConfirm  = (options: Confirmation) => {
+  const showConfirm  = (options: ConfirmationType) => {
     ConfirmationDialog(options);
   };
 

@@ -39,14 +39,6 @@
       "admissionDate": "2024-08-07",
       "cpf": "54815611076",
       "status": "REVIEW"
-    },
-    {
-      "id": "40",
-      "employeeName": "Test Test",
-      "email": "test@test.com",
-      "admissionDate": "2024-08-11",
-      "cpf": "07991141039",
-      "status": "REVIEW"
     }
   ]
 }

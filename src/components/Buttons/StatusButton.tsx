@@ -16,11 +16,18 @@ const StatusButton = (props: Props) => {
     const { dispatch } = useRegistrations();
 
     const onButtonClick = (selectedStatus: BaseSyntheticEvent) => {
+        const status = selectedStatus.target.value;
+        let customMessage: string = '';
+
+        if (status === StatusEnum.APPROVED) customMessage = 'Deseja aprovar esse item?'
+        else if (status === StatusEnum.REPROVED) customMessage = 'Deseja reprovar esse item?'
+        else customMessage = 'Deseja revisar novamente esse item?'
+        
         confirm({
             title: 'Você tem certeza?',
-            message: `Deseja prosseguir com a ação?`,
+            message: `Atenção: ${customMessage}`,
             onConfirm: () => {
-                updateEmployee(dispatch, props.registration, selectedStatus.target.value)
+                updateEmployee(dispatch, props.registration, status)
             },
             onCancel: () => {
             }
